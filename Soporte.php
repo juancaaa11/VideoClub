@@ -1,8 +1,9 @@
 <?php
 
+include_once("Resumible.php");
 include_once("Videoclub.php");
 
-class Soporte {
+abstract class Soporte {
 
     // Atributos
     private $titulo;

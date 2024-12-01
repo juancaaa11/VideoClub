@@ -6,7 +6,7 @@ include_once("Videoclub.php");
 $videoclub = new Videoclub("Mi Videoclub");
 
 // Añadir productos
-$videoclub->incluirCintaVideo("El Padrino", 5.99, 180, "VHS");  // Ahora incluye el formato
+$videoclub->incluirCintaVideo("El Padrino", 5.99, 180, "VHS");  //incluye el formato
 $videoclub->incluirDvd("Star Wars", 7.99, "PS4", ["Español", "Inglés"], "HD");
 $videoclub->incluirJuego("FIFA 23", 49.99, "PS5", 1, 4);
 
@@ -19,5 +19,5 @@ $videoclub->listarProductos();
 $videoclub->listarSocios();
 
 // Alquilar un producto
-$videoclub->alquilarSocioProducto(0, 0); // Juan Pérez alquila el primer producto
+$videoclub->alquilarSocioProducto(0, 0); // alquila el primer producto
 ?>

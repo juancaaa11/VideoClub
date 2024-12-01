@@ -22,9 +22,8 @@ class Juego extends Soporte {
     }
 
     public function muestraResumen(){
-        // Llamar al método muestraResumen() de la clase padre
+     
         parent::muestraResumen();
-        // Mostrar las propiedades específicas de la clase hija
         echo "<strong>Consola: </strong>" . $this->consola . "<br>";
         echo "<strong>Jugadores: </strong>" . $this->minNumJugadores . " - " . $this->maxNumJugadores . "<br>";
     }
