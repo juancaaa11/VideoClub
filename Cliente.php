@@ -43,17 +43,17 @@ class Cliente {
     public function tieneAlquilado(Soporte $s): bool {
         foreach ($this->soportesAlquilados as $soporte) {
             if ($soporte === $s) {
-                return true; // El soporte está alquilado
+                return true;
             }
         }
-        return false; // El soporte no está alquilado
+        return false; 
     }
 
     // Alquilar un soporte
     public function alquilar(Soporte $s): bool {
         if ($this->tieneAlquilado($s)) {
             echo "El soporte ya está alquilado.<br>";
-            return false; // El soporte ya está alquilado
+            return false; 
         }
 
         if (count($this->soportesAlquilados) < $this->maxAlquilerConcurrente) {

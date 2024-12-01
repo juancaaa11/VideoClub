@@ -10,7 +10,7 @@ abstract class Soporte {
     public $numero;
     public $precio;
 
-    // Definimos IVA como una constante estática
+    // Definimos IVA 
     private static $IVA = 21; // El 21% de IVA
 
     // Constructor
@@ -33,7 +33,7 @@ abstract class Soporte {
         return number_format($this->precio, 2, '.', ''); // Dos decimales
     }
 
-    // Método para calcular el precio con IVA
+    // calcular el precio con IVA
     public function getPrecioconIva() {
         $precioConIva = ($this->precio * self::$IVA / 100) + $this->precio;
         return number_format($precioConIva, 2, '.', ''); // Dos decimales

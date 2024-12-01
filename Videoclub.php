@@ -10,7 +10,7 @@ include_once("Cliente.php");
 class Videoclub {
 
     public $nombre;
-    public $productos = []; // Array para almacenar los productos (soportes)
+    public $productos = []; // Array para almacenar los productos
     public $socios = []; // Array para almacenar los socios
 
     // Constructor
