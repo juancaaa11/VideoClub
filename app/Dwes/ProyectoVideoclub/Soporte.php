@@ -1,12 +1,11 @@
 <?php
 namespace Dwes\ProyectoVideoclub;
 
-require_once 'Resumible.php';
-
 class Soporte implements Resumible {
     public $titulo;
     public $numero;
     public $precio;
+    public $alquilado = false;
 
     public function __construct(string $titulo, int $numero, float $precio) {
         $this->titulo = $titulo;
@@ -28,11 +27,20 @@ class Soporte implements Resumible {
         return $this->numero;
     }
 
-    public function muestraResumen() {
+    public function muestraResumen(){
         return "Título: " . $this->titulo . "\n" .
                "Número: " . $this->numero . "\n" .
                "Precio: " . number_format($this->precio, 2) . "€\n" .
-               "Precio con IVA: " . number_format($this->getPrecioConIVA(), 2) . "€";
+               "Precio con IVA: " . number_format($this->getPrecioConIVA(), 2) . "€\n" .
+               "Estado: " . ($this->alquilado ? "Alquilado" : "Disponible");
+    }
+    
+    public function alquilar() {
+        $this->alquilado = true;  // Alquilamos el producto
+    }
+
+    public function devolver() {
+        $this->alquilado = false; // Devolvemos el producto
     }
 }
 ?>

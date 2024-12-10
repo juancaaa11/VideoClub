@@ -1,7 +1,5 @@
 <?php
 namespace Dwes\ProyectoVideoclub;
-include_once "Soporte.php";
-
 class Cliente {
     public $nombre;
     public $numero;
@@ -36,36 +34,38 @@ class Cliente {
         return false;
     }
 
-    public function alquilar(Soporte $s): Cliente {
+    public function alquilar(Soporte $s) {
+        // Verificar si el soporte ya está alquilado
         if ($this->tieneAlquilado($s)) {
-            echo "No se puede alquilar el soporte porque ya está alquilado.\n";
-            return $this; // Devuelve la instancia actual para permitir encadenamiento
+            throw new \Dwes\ProyectoVideoclub\Util\SoporteYaAlquiladoException("El soporte ya está alquilado.");
         }
-    
+
+        // Verificar si se ha alcanzado el límite de alquileres concurrentes
         if ($this->numSoportesAlquilados >= $this->maxAlquilerConcurrente) {
-            echo "No se pueden alquilar más soportes, se ha alcanzado el límite.\n";
-            return $this; // Devuelve la instancia actual
+            throw new \Dwes\ProyectoVideoclub\Util\CupoSuperadoException("Se ha alcanzado el límite de alquileres concurrentes.");
         }
-    
+
+        // Si pasa las verificaciones, alquilar el soporte
         $this->soportesAlquileres[] = $s;
         $this->numSoportesAlquilados++;
-        echo "El soporte ha sido alquilado con éxito.\n";
-        return $this; // Devuelve la instancia actual
+        echo "El soporte '{$s->titulo}' ha sido alquilado con éxito.\n";
+
+        return $this;  // Devuelve $this para encadenar métodos
     }
 
     // Método para devolver un soporte
-    public function devolver(int $numSoporte): bool {
+    public function devolver(int $numSoporte) {
+        // Buscar el soporte en los alquileres
         foreach ($this->soportesAlquileres as $index => $soporte) {
             if ($soporte->getNumero() === $numSoporte) {
                 unset($this->soportesAlquileres[$index]);
-                $this->soportesAlquileres = array_values($this->soportesAlquileres); // Reindexar array
+                $this->soportesAlquileres = array_values($this->soportesAlquileres);  // Reindexar array
                 $this->numSoportesAlquilados--;
-                echo "El soporte con número $numSoporte ha sido devuelto con éxito.\n";
-                return true;
+                echo "El soporte con número {$numSoporte} ha sido devuelto con éxito.\n";
+                return $this;  // Devuelve $this para encadenar métodos
             }
         }
-        echo "El soporte con número $numSoporte no estaba alquilado.\n";
-        return false;
+        throw new \Dwes\ProyectoVideoclub\Util\SoporteNoEncontradoException("El soporte con número {$numSoporte} no está alquilado.");
     }
 
     // Método para listar los soportes alquilados
