@@ -1,4 +1,5 @@
 <?php
+namespace Dwes\ProyectoVideoclub;
 require_once 'Soporte.php';
 require_once 'CintaVideo.php';
 require_once 'Dvd.php';
@@ -55,11 +56,11 @@ class Videoclub {
 
     }
 
-    public function alquilarSocioProducto($numeroCliente,$numeroSoporte){
-    
+    public function alquilarSocioProducto($numeroCliente, $numeroSoporte): Videoclub {
         $socio = $this->socios[$numeroCliente - 1];
         $producto = $this->productos[$numeroSoporte - 1];
         $socio->alquilar($producto);
+        return $this; // Devuelve la instancia actual para permitir encadenamiento
     }
 
 }
