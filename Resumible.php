@@ -1,8 +1,7 @@
 <?php
 
-// Interfaz Resumible
 interface Resumible {
-    public function muestraResumen();
+    public function muestraResumen(); // Solo declaración, sin implementación
 }
 
 ?>

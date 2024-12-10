@@ -1,32 +1,29 @@
 <?php
-
-include_once("Soporte.php");
+include_once "Soporte.php";
 
 class Juego extends Soporte {
-
     public $consola;
     public $minNumJugadores;
     public $maxNumJugadores;
 
-    public function __construct($titulo, $numero, $precio, $consola, $minNumJugadores, $maxNumJugadores){
-        
-        parent::__construct($titulo, $numero, $precio);
+    public function __construct($titulo, $precio, $consola, $minJugadores, $maxJugadores) {
+        parent::__construct($titulo, rand(1000, 9999), $precio);  // Precio debe ser un número
         $this->consola = $consola;
-        $this->minNumJugadores = $minNumJugadores;
-        $this->maxNumJugadores = $maxNumJugadores;
-    }
+        $this->minNumJugadores = $minJugadores;
+        $this->maxNumJugadores = $maxJugadores;
 
-    public function muestraJugadoresPosibles(){
-        // Acceso correcto a las propiedades con $this->
-        echo "Jugadores posibles: " . $this->minNumJugadores . " / " . $this->maxNumJugadores . "<br>";
-    }
+}
 
-    public function muestraResumen(){
-     
-        parent::muestraResumen();
-        echo "<strong>Consola: </strong>" . $this->consola . "<br>";
-        echo "<strong>Jugadores: </strong>" . $this->minNumJugadores . " - " . $this->maxNumJugadores . "<br>";
-    }
+    public function muestraJugadoresPosibles() {
+        echo "Jugadores posibles: " . $this->minNumJugadores . " a " . $this->maxNumJugadores . "\n";
+
+}
+    public function muestraResumen() {
+        parent::muestraResumen(); 
+        echo "Consola: " . $this->consola . "\n";
+        $this->muestraJugadoresPosibles();
+
+}
 }
 
 ?>

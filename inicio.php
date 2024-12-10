@@ -1,23 +1,28 @@
 <?php
-// Incluir las clases necesarias
-include_once("Videoclub.php");
-
-// Crear una instancia del videoclub
-$videoclub = new Videoclub("Mi Videoclub");
-
-// Añadir productos
-$videoclub->incluirCintaVideo("El Padrino", 5.99, 180, "VHS");  //incluye el formato
-$videoclub->incluirDvd("Star Wars", 7.99, "PS4", ["Español", "Inglés"], "HD");
-$videoclub->incluirJuego("FIFA 23", 49.99, "PS5", 1, 4);
-
-// Añadir socios
-$videoclub->incluirSocio("Juan Pérez");
-$videoclub->incluirSocio("María Gómez");
-
-// Listar productos y socios
-$videoclub->listarProductos();
-$videoclub->listarSocios();
-
-// Alquilar un producto
-$videoclub->alquilarSocioProducto(0, 0); // alquila el primer producto
-?>
+include "Soporte.php";
+include "CintaVideo.php";
+include "Dvd.php";
+include "Juego.php";
+$soporte1 = new Soporte("Tenet", 22, 3);
+echo "<strong>" . $soporte1->titulo . "</strong>";
+echo "<br>Precio: " . $soporte1->getPrecio() . " euros";
+echo "<br>Precio IVA incluido: " . $soporte1->getPrecioConIVA() . "
+euros";
+$soporte1->muestraResumen();
+$miCinta = new CintaVideo("Los cazafantasmas", 23, 3.5, 107);
+echo "<strong>" . $miCinta->titulo . "</strong>";
+echo "<br>Precio: " . $miCinta->getPrecio() . " euros";
+echo "<br>Precio IVA incluido: " . $miCinta->getPrecioConIva() . "
+euros";
+$miCinta->muestraResumen();
+$miDvd = new Dvd("Origen", 24, 15, "es,en,fr", "16:9");
+echo "<strong>" . $miDvd->titulo . "</strong>";
+echo "<br>Precio: " . $miDvd->getPrecio() . " euros";
+echo "<br>Precio IVA incluido: " . $miDvd->getPrecioConIva() . " euros";
+$miDvd->muestraResumen();
+$miJuego = new Juego("The Last of Us Part II", 26, 49.99, "PS4", 1, 1);
+echo "<strong>" . $miJuego->titulo . "</strong>";
+echo "<br>Precio: " . $miJuego->getPrecio() . " euros";
+echo "<br>Precio IVA incluido: " . $miJuego->getPrecioConIva() . "
+euros";
+$miJuego->muestraResumen();

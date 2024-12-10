@@ -1,89 +1,65 @@
 <?php
-
-// Incluir las clases necesarias
-include_once("Soporte.php");
-include_once("CintaVideo.php");
-include_once("Dvd.php");
-include_once("Juego.php");
-include_once("Cliente.php");
+require_once 'Soporte.php';
+require_once 'CintaVideo.php';
+require_once 'Dvd.php';
+require_once 'Juego.php';
+require_once 'Cliente.php';
 
 class Videoclub {
-
     public $nombre;
-    public $productos = []; // Array para almacenar los productos
-    public $socios = []; // Array para almacenar los socios
+    public $productos = [];
+    public $socios = [];
+    public $numSocios = 0;
 
-    // Constructor
-    public function __construct($nombre) {
+    public function __construct($nombre = '') {
         $this->nombre = $nombre;
     }
 
-    // privado para incluir un producto 
     private function incluirProducto(Soporte $producto) {
         $this->productos[] = $producto;
     }
 
-    // Incluir una Cinta de Video
-    public function incluirCintaVideo($titulo, $precio, $duracion, $formato) {
-        $cinta = new CintaVideo($titulo, 0, $precio, $duracion, $formato);
-        $this->incluirProducto($cinta);
+    public function incluirCintaVideo($titulo, $precio, $duracion, $formatoPantalla) {
+        $this->incluirProducto(new CintaVideo($titulo, $precio, $duracion, $formatoPantalla));
     }
 
-    // Incluir un DVD
-    public function incluirDvd($titulo, $precio, $consola, $idiomas, $pantalla) {
-        $dvd = new Dvd($titulo, 0, $precio, $idiomas, $pantalla);
-        $this->incluirProducto($dvd);
+    public function incluirDvd($titulo, $numero, $precio, $idiomas, $formatoPantalla) {
+        $this->incluirProducto(new Dvd($titulo, $numero, $precio, $idiomas, $formatoPantalla));
     }
 
-    // Incluir un Juego
     public function incluirJuego($titulo, $precio, $consola, $minJugadores, $maxJugadores) {
-        $juego = new Juego($titulo, 0, $precio, $consola, $minJugadores, $maxJugadores);
-        $this->incluirProducto($juego);
+        $this->incluirProducto(new Juego($titulo, $precio, $consola, $minJugadores, $maxJugadores));
     }
 
-    // Incluir un Socio
     public function incluirSocio($nombre, $maxAlquileresConcurrentes = 3) {
-        $socio = new Cliente($nombre, count($this->socios), $maxAlquileresConcurrentes);
-        $this->socios[] = $socio;
+        $this->socios[] = new Cliente($nombre, $maxAlquileresConcurrentes);
+        $this->numSocios++;
     }
 
-    // Listar todos los productos
-    public function listarProductos() {
-        echo "<h3>Productos disponibles:</h3>";
-        foreach ($this->productos as $producto) {
-            $producto->muestraResumen();
+    public function listarProductos(){
+
+    echo "Productos disponibles:\n";
+    foreach ($this->productos as $producto) {
+        echo $producto->muestraResumen() . "\n";
         }
+       
     }
 
-    // Listar todos los socios
     public function listarSocios() {
-        echo "<h3>Socios:</h3>";
+
+        echo "Socios del videoclub:\n";
         foreach ($this->socios as $socio) {
-            echo "- " . $socio->getNombre() . "<br>";
-
+            echo $socio->muestraResumen() . "\n";
+           
         }
-        echo "<br>";
+
     }
 
-    // Alquilar un producto a un socio
-    public function alquilarSocioProducto($numeroCliente, $numeroSoporte) {
-        $cliente = $this->socios[$numeroCliente];  
-        $soporte = $this->productos[$numeroSoporte]; 
+    public function alquilarSocioProducto($numeroCliente,$numeroSoporte){
     
-        if ($cliente->tieneAlquilado($soporte)) {
-            echo "El cliente " . $cliente->getNombre() . " ya tiene este soporte alquilado.<br>";
-            return false; // El cliente ya tiene el soporte alquilado
-        }
-    
-        if (count($cliente->soportesAlquilados) < $cliente->maxAlquilerConcurrente) {
-            $cliente->alquilar($soporte);  // Alquilar el producto
-            echo " <strong>El cliente " . $cliente->getNombre() . " ha alquilado el soporte:  </strong>" . $soporte->getTitulo() . "<br>";
-            return true; // Alquiler exitoso
-        } else {
-            echo "El cliente " . $cliente->getNombre() . " ha alcanzado el límite de alquileres.<br>";
-            return false; 
-        }
+        $socio = $this->socios[$numeroCliente - 1];
+        $producto = $this->productos[$numeroSoporte - 1];
+        $socio->alquilar($producto);
     }
-    
+
 }
-?>

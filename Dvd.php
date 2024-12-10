@@ -1,27 +1,30 @@
 <?php
-
-include_once("Soporte.php");
+include_once "Soporte.php";
 class Dvd extends Soporte{
- 
-    public $idiomas;
-    public $formatPantalla;
 
-    public function __construct($titulo, $numero, $precio, $idiomas, $formatPantalla){
-        
+    public $idiomas;
+    public $formatoPantalla;
+
+    public function __construct($titulo, $numero, $precio, $idiomas, $formatoPantalla) {
         parent::__construct($titulo, $numero, $precio);
         $this->idiomas = $idiomas;
-        $this->formatPantalla = $formatPantalla;
-    
-    }
+        $this->formatoPantalla = $formatoPantalla;
 
-    public function muestraResumen(){
-        parent::muestraResumen();
-        echo "<strong>Idiomas: </strong>" . implode(", ", $this->idiomas) . "<br>";  // Usamos implode para convertir el array en una cadena
-        echo "<strong>Formato de pantalla: </strong>" . $this->formatPantalla . "<br>";
-    }
+}
+
+public function muestraResumen() {
+    echo parent::muestraResumen();
+    echo "<br><strong>Idiomas:</strong> " .  $this->idiomas;
+    echo "<br><strong>Formato de pantalla:</strong> " . $this->formatoPantalla . "<br>";
     
 
 }
+}
+
+
+
+
+
 
 
 ?>
